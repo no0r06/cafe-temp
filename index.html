@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zen Garden Korean Cafe</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;600&family=Noto+Serif+KR:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8fff8 0%, #e8f5e9 100%);
+            color: #2d5a2d;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(168, 255, 185, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(200, 230, 201, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .animate-fade {
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(135deg, rgba(200, 230, 201, 0.95) 0%, rgba(165, 214, 167, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            color: #388e3c;
+            animation: pulse 2s infinite;
+        }
+
+        .logo-text h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            background: linear-gradient(45deg, #2e7d32, #81c784);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-text p {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 0.9rem;
+            color: #558b2f;
+            letter-spacing: 2px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav a {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: #2d5a2d;
+            text-decoration: none;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #388e3c, #81c784);
+            transition: width 0.3s ease;
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav a:hover {
+            color: #1b5e20;
+            transform: translateY(-2px);
+        }
+
+        .admin-btn {
+            background: linear-gradient(135deg, #81c784, #4caf50);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(129, 199, 132, 0.3);
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(129, 199, 132, 0.4);
+            background: linear-gradient(135deg, #66bb6a, #388e3c);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #2d5a2d;
+            cursor: pointer;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(168, 255, 185, 0.4) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(200, 230, 201, 0.3) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #1b5e20, #4caf50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.4rem;
+            color: #558b2f;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #81c784, #4caf50);
+            color: white;
+            box-shadow: 0 4px 20px rgba(129, 199, 132, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(129, 199, 132, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #2d5a2d;
+            border: 2px solid #81c784;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(129, 199, 132, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: slideInRight 1s ease-out 0.3s both;
+        }
+
+        .floating-elements {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.6));
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .element-1 {
+            top: 10%;
+            left: 10%;
+            width: 180px;
+            height: 180px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .element-2 {
+            top: 40%;
+            right: 10%;
+            width: 150px;
+            height: 150px;
+            animation: float 5s ease-in-out infinite 0.5s;
+        }
+
+        .element-3 {
+            bottom: 10%;
+            left: 30%;
+            width: 140px;
+            height: 140px;
+            animation: float 6s ease-in-out infinite 1s;
+        }
+
+        .floating-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #81c784, #4caf50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ===== MENU SECTION ===== */
+        .menu-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, #e8f5e9 0%, #f1f8e9 100%);
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #1b5e20, #4caf50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #81c784, #4caf50);
+            border-radius: 2px;
+        }
+
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .cat-btn {
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 2px solid #a5d6a7;
+            border-radius: 50px;
+            color: #2d5a2d;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cat-btn.active, .cat-btn:hover {
+            background: linear-gradient(135deg, #81c784, #4caf50);
+            color: white;
+            border-color: #81c784;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(129, 199, 132, 0.3);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-item {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .menu-item:hover::before {
+            left: 100%;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .item-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1b5e20;
+        }
+
+        .item-price {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #81c784;
+            font-weight: bold;
+        }
+
+        .item-desc {
+            color: #558b2f;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .item-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .tag-new {
+            background: linear-gradient(135deg, #c8e6c9, #a5d6a7);
+            color: #1b5e20;
+        }
+
+        .tag-popular {
+            background: linear-gradient(135deg, #ffe082, #ffd54f);
+            color: #5d4037;
+        }
+
+        .item-image {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #c8e6c9, #a5d6a7);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .item-image i {
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-text p {
+            font-size: 1.2rem;
+            color: #2d5a2d;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .feature i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #81c784, #4caf50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature h3 {
+            font-family: 'Playfair Display', serif;
+            color: #1b5e20;
+            font-size: 1.2rem;
+        }
+
+        .about-visual {
+            position: relative;
+            height: 400px;
+        }
+
+        .visual-element {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #c8e6c9, #a5d6a7);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .info-item i {
+            font-size: 2rem;
+            color: #81c784;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form h3 {
+            font-family: 'Playfair Display', serif;
+            color: #1b5e20;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid #c8e6c9;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #81c784;
+            box-shadow: 0 0 0 3px rgba(129, 199, 132, 0.2);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        /* ===== ADMIN PANEL ===== */
+        .admin-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .admin-content {
+            background: linear-gradient(135deg, #ffffff, #f8fff8);
+            width: 100%;
+            max-width: 800px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.3s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, #81c784, #4caf50);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        .admin-body {
+            padding: 2rem;
+        }
+
+        .admin-form {
+            background: rgba(200, 230, 201, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .admin-form input,
+        .admin-form select,
+        .admin-form textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #c8e6c9;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        .admin-items {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .admin-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            border-left: 4px solid #81c784;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn {
+            background: #bbdefb;
+            color: #1976d2;
+        }
+
+        .delete-btn {
+            background: #ffcdd2;
+            color: #d32f2f;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero h2 { font-size: 3rem; }
+            .menu-grid { grid-template-columns: repeat(2, 1fr); }
+            .about-content { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav { display: none; }
+            .menu-toggle { display: block; }
+            .hero { flex-direction: column; text-align: center; }
+            .hero-btns { justify-content: center; }
+            .menu-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-leaf logo-icon"></i>
+                <div class="logo-text">
+                    <h1>선 Garden</h1>
+                    <p>Korean Zen Cafe</p>
+                </div>
+            </div>
+            <nav class="nav">
+                <a href="#home" class="active">Home</a>
+                <a href="#menu">Menu</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+                <button class="admin-btn" onclick="openAdmin()">
+                    <i class="fas fa-user-cog"></i> Admin
+                </button>
+            </nav>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h2>Where Korean Tradition Meets Zen Tranquility</h2>
+            <p>Experience the harmony of authentic Korean flavors in our peaceful garden setting. Each cup of tea is crafted with mindfulness.</p>
+            <div class="hero-btns">
+                <a href="#menu" class="btn btn-primary">Explore Menu</a>
+                <a href="#contact" class="btn btn-secondary">Visit Us</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-elements">
+                <div class="floating-element element-1">
+                    <i class="fas fa-mug-hot floating-icon"></i>
+                    <span>Traditional Tea</span>
+                </div>
+                <div class="floating-element element-2">
+                    <i class="fas fa-cookie-bite floating-icon"></i>
+                    <span>Korean Desserts</span>
+                </div>
+                <div class="floating-element element-3">
+                    <i class="fas fa-seedling floating-icon"></i>
+                    <span>Organic Ingredients</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+        <h2 class="section-title">Our Menu</h2>
+        <div class="category-filter">
+            <button class="cat-btn active" onclick="filterMenu('all')">All Items</button>
+            <button class="cat-btn" onclick="filterMenu('drinks')">Drinks</button>
+            <button class="cat-btn" onclick="filterMenu('desserts')">Desserts</button>
+            <button class="cat-btn" onclick="filterMenu('food')">Food</button>
+        </div>
+        <div class="menu-grid" id="menuGrid">
+            <!-- Menu items loaded by JavaScript -->
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <h2 class="section-title">Our Philosophy</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Founded in Seoul by tea master Kim Soo-ji, Zen Garden preserves ancient Korean tea ceremonies while creating a modern sanctuary for mindfulness. Every element is intentional.</p>
+                <div class="features-grid">
+                    <div class="feature">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <h3>Traditional Craft</h3>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-leaf"></i>
+                        <h3>Organic Ingredients</h3>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-recycle"></i>
+                        <h3>Sustainable</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="about-visual">
+                <div class="visual-element">
+                    <i class="fas fa-mountain" style="font-size: 8rem; color: rgba(255,255,255,0.9);"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <h2 class="section-title">Visit Us</h2>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h3>Location</h3>
+                        <p>123 Zen Street, Seoul, Korea</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h3>Hours</h3>
+                        <p>Monday - Sunday: 8AM - 10PM</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h3>Contact</h3>
+                        <p>+82 2-123-4567</p>
+                        <p>hello@zengarden.kr</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Send Message</h3>
+                <form id="contactForm">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" rows="4" required></textarea>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2024 Zen Garden Korean Cafe | Portfolio Project | Showcases Korean Zen Aesthetics</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p style="font-size: 0.9rem; opacity: 0.7;">Designed with mindfulness</p>
+        </div>
+    </footer>
+
+    <!-- Admin Panel -->
+    <div id="adminModal" class="admin-modal">
+        <div class="admin-content">
+            <div class="admin-header">
+                <h2><i class="fas fa-user-cog"></i> Admin Panel</h2>
+                <button class="close-btn" onclick="closeAdmin()">&times;</button>
+            </div>
+            <div class="admin-body">
+                <div class="admin-form">
+                    <h3>Add New Menu Item</h3>
+                    <div class="form-row">
+                        <input type="text" id="itemName" placeholder="Item Name" required>
+                        <select id="itemCategory">
+                            <option value="drinks">Drinks</option>
+                            <option value="desserts">Desserts</option>
+                            <option value="food">Food</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" id="itemPrice" placeholder="Price ($)" required>
+                        <input type="text" id="itemImage" placeholder="Emoji Icon" value="🥤">
+                    </div>
+                    <textarea id="itemDesc" placeholder="Description" rows="3"></textarea>
+                    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                        <button class="btn btn-primary" onclick="addMenuItem()" style="flex: 1;">
+                            <i class="fas fa-plus"></i> Add Item
+                        </button>
+                        <button class="btn btn-secondary" onclick="closeAdmin()" style="flex: 1;">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+                
+                <h3>Current Menu Items</h3>
+                <div class="admin-items" id="adminItems">
+                    <!-- Items loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== MENU DATA =====
+        let menuItems = [
+            { id: 1, name: "Korean Traditional Tea", category: "drinks", price: "$5.50", desc: "Authentic Korean herbal tea blend", image: "🍵", tags: ["new"] },
+            { id: 2, name: "Matcha Bamboo Latte", category: "drinks", price: "$6.50", desc: "Ceremonial matcha with bamboo essence", image: "🎍", tags: ["popular"] },
+            { id: 3, name: "Yuzu Honey Tea", category: "drinks", price: "$5.75", desc: "Korean yuzu with wildflower honey", image: "🍯", tags: [] },
+            { id: 4, name: "Black Sesame Latte", category: "drinks", price: "$6.25", desc: "Roasted black sesame with oat milk", image: "⚫", tags: [] },
+            { id: 5, name: "Patbingsu", category: "desserts", price: "$8.99", desc: "Traditional Korean shaved ice dessert", image: "🍧", tags: ["popular"] },
+            { id: 6, name: "Matcha Tiramisu", category: "desserts", price: "$7.50", desc: "Green tea tiramisu with red bean", image: "🍰", tags: ["new"] },
+            { id: 7, name: "Hotteok", category: "desserts", price: "$5.25", desc: "Korean cinnamon sugar pancakes", image: "🥞", tags: [] },
+            { id: 8, name: "Kimchi Toast", category: "food", price: "$8.50", desc: "Sourdough with homemade kimchi", image: "🍞", tags: [] },
+            { id: 9, name: "Kimbap Rolls", category: "food", price: "$9.25", desc: "Assorted Korean rice rolls", image: "🍙", tags: ["popular"] },
+            { id: 10, name: "Zen Garden Platter", category: "food", price: "$15.99", desc: "Assorted Korean treats", image: "🎎", tags: [] },
+        ];
+
+        // ===== INITIALIZE =====
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMenuItems('all');
+            renderAdminItems();
+            addScrollAnimations();
+        });
+
+        // ===== MENU FUNCTIONS =====
+        function renderMenuItems(category) {
+            const grid = document.getElementById('menuGrid');
+            grid.innerHTML = '';
+            
+            const filtered = category === 'all' 
+                ? menuItems 
+                : menuItems.filter(item => item.category === category);
+            
+            filtered.forEach(item => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'menu-item animate-fade';
+                itemEl.innerHTML = `
+                    <div class="item-image">
+                        <span style="font-size: 4rem;">${item.image}</span>
+                    </div>
+                    <div class="item-header">
+                        <h3 class="item-name">${item.name}</h3>
+                        <span class="item-price">${item.price}</span>
+                    </div>
+                    <p class="item-desc">${item.desc}</p>
+                    <div class="item-tags">
+                        ${item.tags.includes('new') ? '<span class="tag tag-new">NEW</span>' : ''}
+                        ${item.tags.includes('popular') ? '<span class="tag tag-popular">POPULAR</span>' : ''}
+                    </div>
+                    <button class="btn btn-secondary" style="width: 100%;" onclick="addToOrder(${item.id})">
+                        <i class="fas fa-plus"></i> Add to Order
+                    </button>
+                `;
+                grid.appendChild(itemEl);
+            });
+        }
+
+        function filterMenu(category) {
+            // Update active button
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Render items
+            renderMenuItems(category);
+        }
+
+        // ===== ADMIN FUNCTIONS =====
+        function openAdmin() {
+            document.getElementById('adminModal').style.display = 'flex';
+            renderAdminItems();
+        }
+
+        function closeAdmin() {
+            document.getElementById('adminModal').style.display = 'none';
+        }
+
+        function addMenuItem() {
+            const name = document.getElementById('itemName').value;
+            const category = document.getElementById('itemCategory').value;
+            const price = document.getElementById('itemPrice').value;
+            const image = document.getElementById('itemImage').value;
+            const desc = document.getElementById('itemDesc').value;
+            
+            if (!name || !price) {
+                alert('Please fill in required fields');
+                return;
+            }
+            
+            const newItem = {
+                id: menuItems.length + 1,
+                name,
+                category,
+                price: `$${parseFloat(price).toFixed(2)}`,
+                desc: desc || 'Delicious item',
+                image: image || '🥤',
+                tags: []
+            };
+            
+            menuItems.push(newItem);
+            renderMenuItems('all');
+            renderAdminItems();
+            
+            // Reset form
+            document.getElementById('itemName').value = '';
+            document.getElementById('itemPrice').value = '';
+            document.getElementById('itemDesc').value = '';
+        }
+
+        function renderAdminItems() {
+            const container = document.getElementById('adminItems');
+            container.innerHTML = '';
+            
+            menuItems.forEach(item => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'admin-item';
+                itemEl.innerHTML = `
+                    <div>
+                        <strong>${item.name}</strong>
+                        <div style="font-size: 0.9rem; color: #666;">${item.category} • ${item.price}</div>
+                    </div>
+                    <div class="item-actions">
+                        <button class="action-btn edit-btn" onclick="editItem(${item.id})">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteItem(${item.id})">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                `;
+                container.appendChild(itemEl);
+            });
+        }
+
+        function deleteItem(id) {
+            if (confirm('Delete this item?')) {
+                menuItems = menuItems.filter(item => item.id !== id);
+                renderMenuItems('all');
+                renderAdminItems();
+            }
+        }
+
+        function editItem(id) {
+            const item = menuItems.find(i => i.id === id);
+            if (item) {
+                document.getElementById('itemName').value = item.name;
+                document.getElementById('itemCategory').value = item.category;
+                document.getElementById('itemPrice').value = item.price.replace('$', '');
+                document.getElementById('itemImage').value = item.image;
+                document.getElementById('itemDesc').value = item.desc;
+                
+                // Remove old item
+                menuItems = menuItems.filter(i => i.id !== id);
+                renderAdminItems();
+            }
+        }
+
+        // ===== UI FUNCTIONS =====
+        function addToOrder(itemId) {
+            const item = menuItems.find(i => i.id === itemId);
+            alert(`Added ${item.name} to order!`);
+        }
+
+        function toggleMenu() {
+            const nav = document.querySelector('.nav');
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function addScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.menu-item, .feature, .info-item').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Contact form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Message sent! (This is a demo)');
+            this.reset();
+        });
+
+        // Close admin on outside click
+        document.getElementById('adminModal').addEventListener('click', function(e) {
+            if (e.target === this) closeAdmin();
+        });
+    </script>
+</body>
+</html>
