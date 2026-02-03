@@ -18,7 +18,73 @@
 
         html {
             scroll-behavior: smooth;
-        }
+        } 
+        <!-- Add Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+<script>
+  // Firebase config (I'll give you real keys in next step)
+  const firebaseConfig = {
+    apiKey: "demo-key-for-now",
+    authDomain: "cafe-admin-demo.firebaseapp.com",
+    projectId: "cafe-admin-demo",
+    storageBucket: "cafe-admin-demo.appspot.com",
+    messagingSenderId: "1234567890",
+    appId: "1:1234567890:web:abc123def456"
+  };
+  
+  // Initialize Firebase
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  const db = firebase.firestore();
+  
+  // REAL backend functions
+  async function saveMenuItem(item) {
+    try {
+      const docRef = await db.collection('menu_items').add({
+        ...item,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      console.log('Item saved with ID:', docRef.id);
+      return docRef.id;
+    } catch (error) {
+      console.error('Error saving item:', error);
+    }
+  }
+  
+  async function getMenuItems() {
+    try {
+      const snapshot = await db.collection('menu_items').orderBy('createdAt', 'desc').get();
+      return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    } catch (error) {
+      console.error('Error getting items:', error);
+      return [];
+    }
+  }
+  
+  async function deleteMenuItem(id) {
+    try {
+      await db.collection('menu_items').doc(id).delete();
+      console.log('Item deleted');
+    } catch (error) {
+      console.error('Error deleting item:', error);
+    }
+  }
+  
+  // Update your admin panel to use these
+  function openAdmin() {
+    document.getElementById('adminModal').style.display = 'flex';
+    loadRealMenuItems();
+  }
+  
+  async function loadRealMenuItems() {
+    const items = await getMenuItems();
+    // Render these in admin panel
+    console.log('Real items from backend:', items);
+  }
+</script>
 
         body {
             font-family: 'Poppins', sans-serif;
